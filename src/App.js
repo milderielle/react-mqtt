@@ -1,45 +1,76 @@
-import React, { useState, Fragment } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react"
+import "./App.css"
 
-var mqtt    = require('mqtt');
-var options = {
-	protocol: 'mqtts',
-	// clientId uniquely identifies client
-	// choose any string you wish
-	clientId: 'b0908853' 	
-};
-var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
-
-// preciouschicken.com is the MQTT topic
-client.subscribe('preciouschicken.com');
+var mqtt = require("mqtt")
 
 function App() {
-  var note;
-  client.on('message', function (topic, message) {
-    note = message.toString();
-    // Updates React state with message 
-    setMesg(note);
-    console.log(note);
-    client.end();
-    });
+  const [value, setValue] = useState(-1)
+  const [payload, setPayload] = useState({})
+  const [color, setColor] = useState("white")
+  const [status, setStatus] = useState("")
+  const [emoji, setEmoji] = useState("")
+  const subTopic = "ppirch/#"
+  var client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
 
-  // Sets default React state 
-  const [mesg, setMesg] = useState(<Fragment><em>nothing heard</em></Fragment>);
+  client.subscribe(subTopic)
+  client.on("message", function (topic, message) {
+    message = message.toString()
+    setPayload({ topic, message: message })
+    if (topic.split("/").includes("pm2.5")) {
+      setValue(parseFloat(message))
+    }
+  })
 
+  useEffect(() => {
+    console.log("Payload:", payload)
+  }, [payload])
+
+  useEffect(() => {
+    console.log("Value:", value)
+    if (value < 0) {
+      setColor("white")
+      setStatus("")
+      setEmoji("")
+    } else if (value >= 0 && value < 12.1) {
+      setColor("#AAD062")
+      setStatus("Good: 0-12")
+      setEmoji("😊")
+    } else if (value < 35.5) {
+      setColor("#F8D45D")
+      setStatus("Moderate: 12.1-35.4")
+      setEmoji("😐")
+    } else if (value < 55.5) {
+      setColor("#FB9A51")
+      setStatus("Unhealthy for sensitive groups: 35.5-55.4")
+      setEmoji("😕")
+    } else if (value < 150.5) {
+      setColor("#F76669")
+      setStatus("Unhealthy: 55.5-150.4")
+      setEmoji("😖")
+    } else if (value < 250.5) {
+      setColor("#A57DBB")
+      setStatus("Very Unhealthy: 150.5-250.4")
+      setEmoji("😷")
+    } else {
+      setColor("#A07684")
+      setStatus("Hazardous: 250.5+")
+      setEmoji("🤮")
+    }
+  }, [value])
   return (
     <div className="App">
-    <header className="App-header">
-    <h1>A taste of MQTT in React</h1>
-    <p>The message is: {mesg}</p>
-		<p>
-		<a href="https://www.preciouschicken.com/blog/posts/a-taste-of-mqtt-in-react/"    
-		style={{
-			color: 'white'
-		}}>preciouschicken.com/blog/posts/a-taste-of-mqtt-in-react/</a>
-		</p>
-		</header>
-		</div>
-  );
+      <header className="App-header">
+        <h2>Subscribe Topic: {`${subTopic}`}</h2>
+        <h3>Broker: hivemq </h3>
+        <p>Payload: {JSON.stringify(payload)}</p>
+        <div className="rcorners" style={{ background: color }}>
+          <h4 style={{ margin: 0 }}>{status}</h4>
+          <h5 style={{ margin: 0 }}>PM2.5: {value}</h5>
+          {emoji}
+        </div>
+      </header>
+    </div>
+  )
 }
 
-export default App;
+export default App
