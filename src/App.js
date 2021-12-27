@@ -8,17 +8,18 @@ function App() {
   const [payload, setPayload] = useState({})
   const [color, setColor] = useState("white")
   const [status, setStatus] = useState("")
-  const [emoji, setEmoji] = useState("")
+  const [emoji, setEmoji] = useState("") //6-11 ประกาศตัวแปร
   const subTopic = "ppirch/#"
-  const broker = "EMQ X"
-  var client = mqtt.connect("wss://broker.emqx.io:8084/mqtt")
+  const broker = "EMQ X" //ประกาศ brok ที่จะใช้
+  var client = mqtt.connect("wss://broker.emqx.io:8084/mqtt") //connect mqtt broker
 
-  client.subscribe(subTopic)
-  client.on("message", function (topic, message) {
-    message = message.toString()
+  client.subscribe(subTopic) // subscribe topic บ.12
+
+  client.on("message", function (topic, message) { //ประกาศเพื่อเช็ค topic message
+    message = message.toString() //เปลี่ยน mes เป็น str
     setPayload({ topic, message: message })
     if (topic.split("/").includes("pm2.5")) {
-      setValue(parseFloat(message))
+      setValue(parseFloat(message)) //เปลี่ยน pm ที่มีเป็น ที่เราป้อนลงไป
     }
   })
 
@@ -26,7 +27,7 @@ function App() {
     console.log("Payload:", payload)
   }, [payload])
 
-  useEffect(() => {
+  useEffect(() => { //ทำตาม loop
     console.log("Value:", value)
     if (value < 0) {
       setColor("white")
@@ -56,16 +57,17 @@ function App() {
       setColor("#A07684")
       setStatus("Hazardous: 250.5+")
       setEmoji("🤮")
-    }
+    } //ทำตาม loop
+
   }, [value])
-  return (
+  return ( //แสดงค่า return
     <div className="App">
       <header className="App-header">
-        <h2>Subscribe Topic: {`${subTopic}`}</h2>
+        <h2>Subscribe Topic: {`${subTopic}`}</h2> //แสดง sub
         <h3>Broker: {`${broker}`} </h3>
         <p>Payload: {JSON.stringify(payload)}</p>
         <div className="rcorners" style={{ background: color }}>
-          <h4 style={{ margin: 0 }}>{status}</h4>
+          <h4 style={{ margin: 0 }}>{status}</h4> //แสดง setStatus
           <h5 style={{ margin: 0 }}>PM2.5: {value}</h5>
           {emoji}
         </div>
