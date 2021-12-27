@@ -10,7 +10,8 @@ function App() {
   const [status, setStatus] = useState("")
   const [emoji, setEmoji] = useState("")
   const subTopic = "ppirch/#"
-  var client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
+  const broker = "EMQX"
+  var client = mqtt.connect("wss://broker.emqx.io:8084/mqtt")
 
   client.subscribe(subTopic)
   client.on("message", function (topic, message) {
@@ -61,7 +62,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>Subscribe Topic: {`${subTopic}`}</h2>
-        <h3>Broker: hivemq </h3>
+        <h3>Broker: {`${broker}`} </h3>
         <p>Payload: {JSON.stringify(payload)}</p>
         <div className="rcorners" style={{ background: color }}>
           <h4 style={{ margin: 0 }}>{status}</h4>
