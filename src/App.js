@@ -10,7 +10,7 @@ function App() {
   const [status, setStatus] = useState("")
   const [emoji, setEmoji] = useState("")
   const subTopic = "ppirch/#"
-  const broker = "EMQX"
+  const broker = "EMQ X"
   var client = mqtt.connect("wss://broker.emqx.io:8084/mqtt")
 
   client.subscribe(subTopic)
