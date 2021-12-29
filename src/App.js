@@ -64,7 +64,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>Subscribe Topic: {`${subTopic}`}</h2> //แสดง sub
-        <h3>Broker: {`${broker}`} </h3>
+        <h3>Broker: {`${broker}`} </h3> 
         <p>Payload: {JSON.stringify(payload)}</p>
         <div className="rcorners" style={{ background: color }}>
           <h4 style={{ margin: 0 }}>{status}</h4> //แสดง setStatus
