@@ -9,9 +9,10 @@ function App() {
   const [color, setColor] = useState("white")
   const [status, setStatus] = useState("")
   const [emoji, setEmoji] = useState("") //6-11 ประกาศตัวแปร
-  const subTopic = "ppirch/#"
-  const broker = "EMQ X" //ประกาศ brok ที่จะใช้
-  var client = mqtt.connect("wss://broker.emqx.io:8084/mqtt") //connect mqtt broker
+  const subTopic = "mild new/#"
+  const broker = "hive mq" //ประกาศ brok ที่จะใช้
+  var client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
+
 
   client.subscribe(subTopic) // subscribe topic บ.12
 
