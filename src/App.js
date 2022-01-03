@@ -64,11 +64,11 @@ function App() {
   return ( //แสดงค่า return
     <div className="App">
       <header className="App-header">
-        <h2>Subscribe Topic: {`${subTopic}`}</h2> //แสดง sub
+        <h2>Subscribe Topic: {`${subTopic}`}</h2>
         <h3>Broker: {`${broker}`} </h3> 
         <p>Payload: {JSON.stringify(payload)}</p>
         <div className="rcorners" style={{ background: color }}>
-          <h4 style={{ margin: 0 }}>{status}</h4> //แสดง setStatus
+          <h4 style={{ margin: 0 }}>{status}</h4>
           <h5 style={{ margin: 0 }}>PM2.5: {value}</h5>
           {emoji}
         </div>
