@@ -1,0 +1,78 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .rcorners {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    width: 220px;
+    height: 90px;
+    color: white;
+    float: left;
+  }
+  .rcorners.emoji_layout {
+    
+    padding: 20px;
+    width: 1000px;
+    height: 250;
+  }
+  
+  .App-header {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+  }
+  
+  .temp_box{
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    width: 220px;
+    height: 90px;
+    background-color: #A3DA8D;
+    float: left;
+  }
+  
+  .hum_box{
+    
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px;
+    width: 220px;
+    height: 90px;
+    background-color: #A3DA8D;
+    float: left;
+  }
+  
+  .show {
+    display:inline
+  }
+  .Text_box{
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px;
+    width: 550px;
+    height: 90px;
+    background-color: #FFF1BD;
+    float: left;
+  }
+  .social_layout{
+    margin: 10px;
+  }
