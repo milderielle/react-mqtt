@@ -14,11 +14,19 @@
 }
 
 .rcorners {
-  border-radius: 25px;
+  border-radius: 20px;
   padding: 20px;
-  width: 500px;
-  height: 150px;
-  color: black;
+  margin: 10px;
+  width: 220px;
+  height: 90px;
+  color: white;
+  float: left;
+}
+.rcorners.emoji_layout {
+  
+  padding: 20px;
+  width: 1000px;
+  height: 250;
 }
 
 .App-header {
@@ -31,3 +39,39 @@
   font-size: calc(10px + 2vmin);
   color: black;
 }
+
+.temp_box{
+  border-radius: 20px;
+  padding: 20px;
+  margin: 10px;
+  width: 220px;
+  height: 90px;
+  background-color: #A3DA8D;
+  float: left;
+}
+
+.hum_box{
+  
+  border-radius: 20px;
+  margin: 10px;
+  padding: 20px;
+  width: 220px;
+  height: 90px;
+  background-color: #A3DA8D;
+  float: left;
+}
+
+.show {
+  display:inline
+}
+.Text_box{
+  border-radius: 20px;
+  margin: 10px;
+  padding: 20px;
+  width: 550px;
+  height: 90px;
+  background-color: #FFF1BD;
+  float: left;
+}
+.social_layout{
+margin: 10px;}
