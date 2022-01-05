@@ -3,49 +3,52 @@ import "./App.css"
 
 var mqtt = require("mqtt")
 
-function App() {
-  /*function pm25_sceen (message_json){
-    //setValue_pm25  (message_json['data']['pm25'])
-  }*/
+  function App() 
+  {
+    /*function pm25_sceen (message_json){
+      //setValue_pm25  (message_json['data']['pm25'])
+    }*/
 
   function social_sceen (message_json){
     setValue_social_text  (message_json['data']['text'])
   }
 
   function check_temporhum(message_json){
-    var Value_temp = message_json['data']['temp']
-    var Value_Hum = message_json['data']['humid']
+    var Value_temp = message_json['data']['temp'] /*ประกาศตัวแปล ข้อความใน data 'temp'*/
+    var Value_Hum = message_json['data']['humid'] /*ประกาศตัวแปล ข้อความใน data 'humid'*/
     setValue_Hum (message_json['data']['humid'])
     cal_realfeel(Value_temp,Value_Hum)
     
+    /*process*/
     if (Value_temp_calfeel >= 0) {
       setColor("white")
-      setStatus("อย่างกับอยู่ขั้วโลกเหนือ บึ๋ยยยย")
+      setStatus("นี่มันจะหนาวเกินไปแล้วนะ")
       setEmoji("🥶")
       
     } if (Value_temp_calfeel >= 20) {
       setColor("#AAD062")
-      setStatus("หนาวเป็นน้ำเเข็งเเล้ว")
+      setStatus("หนาวจัง")
       setEmoji("😆")
      
     } if (Value_temp_calfeel >= 25) {
       setColor("#F8D45D")
-      setStatus("เย็นกำลังดี")
+      setStatus("อากาศเย็นกำลังดีเลย")
       setEmoji("😊")
      
     } if (Value_temp_calfeel >= 30) {
       setColor("#FB9A51")
-      setStatus("ร้อนมากเลย")
+      setStatus("อากาศร้อนจัง")
       setEmoji("😕")
       
     } if (Value_temp_calfeel >= 35) {
       setColor("#F76669")
-      setStatus("ขอร่มที ร้อนไม่ไหว")
+      setStatus("ร้อนมากเลย เปิดแอร์ให้หน่อย")
       setEmoji("😖")
       
     } 
     return true
   }
+  /*end process*/
 
   //คำนวนค่าความรู้สึกต่ออุณภูมินั้นจริงๆ
   function cal_realfeel(t,h) {
@@ -145,20 +148,20 @@ function App() {
 
           <div className="hum_box" style={{ background: color }}>
             <h4 style={{ margin: 0 }}>{status}</h4>
-            <br></br>
+            
             <div className="emoji_layout" >{emoji}</div>
           </div>
 
 
           <div className="rcorners" style={{ background: color }}>
             <h4 style={{ margin: 0 }}>{status}</h4>
-            <br></br>
+            
             <div className="emoji_layout" >{emoji}</div>
           </div>
 
           <div className="hum_box1" style={{ background: color }}>
             <h4 style={{ margin: 0 }}>{status}</h4>
-            <br></br>
+
             <div className="emoji_layout" >{emoji}</div>
           </div>
 
