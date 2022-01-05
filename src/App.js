@@ -4,9 +4,9 @@ import "./App.css"
 var mqtt = require("mqtt")
 
 function App() {
-  function pm25_sceen (message_json){
-    setValue_pm25  (message_json['data']['pm25'])
-  }
+  /*function pm25_sceen (message_json){
+    //setValue_pm25  (message_json['data']['pm25'])
+  }*/
 
   function social_sceen (message_json){
     setValue_social_text  (message_json['data']['text'])
@@ -75,14 +75,12 @@ function App() {
             message_json = message_json.replace(/'/g,'"')
             message_json =  JSON.parse(message_json)
             setPayload({ topic, message: message_json })
-            // setValue_temp (parseFloat(message_json['t']))
-            // setValue_Hum (parseFloat(message_json['h']))
             if (message_json['type'] == "weather"){
               check_temporhum(message_json)
             }
-            if (message_json['type'] == "pm25"){
-              pm25_sceen (message_json)
-            }
+            //if (message_json['type'] == "pm25"){
+              //pm25_sceen (message_json)
+            //}
             if (message_json['type'] == "social"){
               social_sceen(message_json)
             }
@@ -91,9 +89,6 @@ function App() {
         catch{
           setmessage_string(message)
         }
-        // setPayload({ topic, message: message_json })
-        // setValue_temp (parseFloat(message_json['t']))
-        // setValue_Hum (parseFloat(message_json['h']))
         }
 
     }
@@ -101,7 +96,7 @@ function App() {
   
   const [message_string, setmessage_string] = useState("")
   const [Value_social_text, setValue_social_text] = useState("")
-  const [Value_pm25, setValue_pm25] = useState(-1)
+  //const [Value_pm25, setValue_pm25] = useState(-1)
   const [Value_temp, setValue_temp] = useState(-1)
   const [Value_Hum, setValue_Hum] = useState(-1)
   const [Value_temp_cal, setValue_temp_cal] = useState(-1)
@@ -127,29 +122,7 @@ function App() {
     console.log(message)
     console.log(typeof(message))
     check_type_message(topic,message)
-    // if (message != " " ){
-    //   if(typeof(message) == "object"){
-    //   message = message.toString()
-    //   message = message.trim()
-    //   message = message.replace(/'/g,'"')
-    //   // setValue(parseFloat(message))
-    //   message =  JSON.parse(message)
-    //   setPayload({ topic, message: message })
-    //   setValue_temp (parseFloat(message['t']))
-    //   setValue_Hum (parseFloat(message['h']))
-    //   }
-    // }
-    // setValue(parseFloat(ms['t']))
   })
-  
-  //เมื่อค่าที่อยู่ใน [xxx] มีการเปลี่ยนเเปลงให้ทำอะไรต่อไปนี้...
-  // useEffect(() => {
-  //   check_temporhum(Value_temp,Value_Hum)
-  // }, [Value_temp])
-
-  // useEffect(() => {
-  //   check_temporhum(Value_temp,Value_Hum)
-  // }, [Value_Hum])
 
 
   //ส่วนของการเเสดงผลหน้าเว็บ
@@ -158,29 +131,37 @@ function App() {
       <header className="App-header">
         <h2>Subscribe Topic: {`${subTopic}`}</h2>
         <h3>Broker: {`${broker}`} </h3>
-        <p>ข้อความธรรมดา: {message_string}</p>
+        <p>message: {message_string}</p>
+        <div className="social_layout" style={{ margin: 0 }}>{Value_social_text}</div>
         
         <div className="show" >
           <div className="temp_box" >
             <h5 style={{ margin: 0 }}>อุณหภูมิ: {Value_temp_cal} °C</h5>
-            <br></br>
             <h5 style={{ margin: 0 }}>ความรู้สึกจริง: {Value_temp_calfeel} °C</h5>
-          </div>
-          <div className="hum_box" >
             <h5 style={{ margin: 0 }}>ความชื้น: {Value_Hum} %</h5>
+            
             <br></br>
-            <h5 style={{ margin: 0 }}>PM2.5: {Value_pm25} AQI</h5>
           </div>
-          <div className="rcorners" style={{ background: color }}>
+
+          <div className="hum_box" style={{ background: color }}>
             <h4 style={{ margin: 0 }}>{status}</h4>
-            {/* <h5 style={{ margin: 0 }}>อุณหภูมิ: {Value_temp_cal} °C ความรู้สึกจริง: {Value_Hum_cal} °C</h5> */}
             <br></br>
             <div className="emoji_layout" >{emoji}</div>
           </div>
-          <div className="Text_box" >
-            <div className="social_layout" style={{ margin: 0 }}>{Value_social_text}</div>
+
+
+          <div className="rcorners" style={{ background: color }}>
+            <h4 style={{ margin: 0 }}>{status}</h4>
+            <br></br>
+            <div className="emoji_layout" >{emoji}</div>
           </div>
-          <p>json Payload: {JSON.stringify(payload)}</p>
+
+          <div className="hum_box1" style={{ background: color }}>
+            <h4 style={{ margin: 0 }}>{status}</h4>
+            <br></br>
+            <div className="emoji_layout" >{emoji}</div>
+          </div>
+
         </div>
       </header>
     </div>
